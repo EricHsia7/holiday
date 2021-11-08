@@ -1,0 +1,92 @@
+<meta charset="UTF-8">
+<title>holiday</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+<style>
+.box h1 {
+  margin:0px;
+  padding:0px;
+  -webkit-user-select: none;
+}
+.box {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  display: flex;
+justify-content: center;
+align-items: center;
+}
+#holiday[h="1"]{
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background:#1a1a1a;
+  }
+  h1 {
+    color:#fff;
+  }
+}
+</style>
+<div class="box">
+  <h1>今天是</h1>
+  <h1 id="holiday" h="1"></h1>
+  <h1>。</h1>
+</div>
+<script>
+function gettodayholiday_tw() {
+  var today = new Date();
+  var datestr = (today.getMonth()+1) + '/' + today.getDate() ;
+var da = '1/1&da&1/11&da&1/15&da&1/23&da&2/4&da&2/14&da&2/15&da&2/19&da&2/28&da&3/1&da&3/5&da&3/8&da&3/12&da&3/17&da&3/20&da&3/21&da&3/25&da&3/26&da&3/29&da&3/30&da&4/1&da&4/4&da&4/5&da&4/7&da&4/22&da&5/1&da&5/4&da&5/5&da&5/10&da&5/12&da&6/3&da&6/6&da&6/9&da&6/15&da&6/30&da&7/1&da&7/11&da&7/12&da&8/8&da&8/14&da&8/27&da&9/1&da&9/3&da&9/9&da&9/13&da&9/28&da&10/6&da&10/10&da&10/21&da&10/25&da&10/31&da&11/1&da&11/11&da&11/17&da&11/12&da&11/21&da&12/5&da&12/10&da&12/12&da&12/25&da&12/27&da&12/28&da&12/31' ;
+  var dana = '元旦&dana&司法節&dana&藥師節&dana&自由日&dana&農民節&dana&情人節&dana&戲劇節&dana&新生活運動紀念日&dana&和平紀念日&dana&兵役節&dana&童子軍節&dana&婦女節&dana&植樹節、國父逝世紀念日&dana&國醫節&dana&郵政節&dana&氣象節&dana&美術節&dana&廣播節&dana&青年節、革命先烈紀念日&dana&出版節&dana&愚人節&dana&婦幼節&dana&音樂節&dana&衛生節&dana&世界地球日&dana&勞動節&dana&文藝節&dana&舞蹈節&dana&珠算節&dana&護士節&dana&禁煙節&dana&工程師節、水利節&dana&鐵路節&dana&警察節&dana&會計師節&dana&漁民節、公路節、稅務節&dana&航海節&dana&聾啞節&dana&父親節&dana&空軍節&dana&鄭成功\誕辰&dana&記者節&dana&軍人節、抗戰紀念&dana&體育節、律師節&dana&法律日&dana&教師節&dana&老人節&dana&國慶紀念日&dana&華僑節&dana&台灣光復節&dana&萬聖節、蔣公誕辰紀念日、榮民節&dana&商人節&dana&光棍節、工業節、地政節&dana&自來水節&dana&國父誕辰紀念日、醫師節、中華文化復興節&dana&防空節&dana&海員節、盲人節&dana&人權節&dana&憲兵節&dana&行憲紀念日、民族復興節、聖誕節&dana&建築師節&dana&電信節&dana&受信節' ;
+  var daarr = da.split('&da&') ;
+  var danaarr = dana.split('&dana&') ;
+  var holidayname = '平日' ;
+  for(var i=0; i<daarr.length; i++) {
+    if(daarr[i] === datestr) {
+      holidayname = danaarr[i] ;
+    }
+  }
+  return holidayname ;
+}
+
+//other
+function gettimerandomnumber(min,max) {
+  var timeseedrandom = new Date().getTime();
+  var myrng = new Math.seedrandom(String(timeseedrandom + '.' + Math.random()));
+  return Math.floor(myrng()*(max - min) + min)
+}
+  
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+let darkmodematched = window.matchMedia('(prefers-color-scheme: dark)').matches;
+var backgroundrandommin = 0 ;
+if(darkmodematched) {
+  backgroundrandommin = 128
+}
+else {
+	backgroundrandommin = 0
+}
+
+var grd_r1 = gettimerandomnumber(backgroundrandommin,255);
+var grd_g1 = gettimerandomnumber(backgroundrandommin,255);  
+var grd_b1 = gettimerandomnumber(backgroundrandommin,255);
+var grd_r2 = gettimerandomnumber(backgroundrandommin,255);
+var grd_g2 = gettimerandomnumber(backgroundrandommin,255);  
+var grd_b2 = gettimerandomnumber(backgroundrandommin,255);
+
+var grd_deg = Math.floor(Math.random() * 360);
+      
+      
+$('#holiday').html(gettodayholiday_tw()).css({'background':'-webkit-linear-gradient(' + grd_deg + 'deg ,' +  rgbToHex(grd_r1,grd_g1,grd_b1) + ' 0%,' +  rgbToHex(grd_r2,grd_g2,grd_b2) + ' 100%)','-webkit-background-clip':'text','-webkit-text-fill-color':'transparent'})
+</script>
